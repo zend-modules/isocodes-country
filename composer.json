@@ -1,0 +1,12 @@
+{
+    "name": "zend-modules/isocodes-country",
+    "license": "GPLv3",
+    "require": {
+        "php": ">=5.3.23",
+    },
+    "autoload" : {
+        "psr-4" : {
+            "IsoCodes\\Country\\" : "src/"
+        }
+    }
+}
