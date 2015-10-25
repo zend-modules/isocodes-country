@@ -59,6 +59,28 @@ class CountryManager implements TranslatorAwareInterface
     }
 
     /**
+     * Get the countries adater.
+     * 
+     * @return AdapterInterface|null
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * Set the countries adapter.
+     * 
+     * @param AdapterInterface $adapter
+     * @return CountryManager
+     */
+    public function setAdapter(AdapterInterface $adapter)
+    {
+        $this->adapter = $adapter;
+        return $this;
+    }
+
+    /**
      * Get all countries.
      * 
      * @return array
