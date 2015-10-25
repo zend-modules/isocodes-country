@@ -3,6 +3,7 @@
     "license": "GPLv3",
     "require": {
         "php": ">=5.3.23",
+        "zendframework/zend-i18n": "2.4.8"
     },
     "autoload" : {
         "psr-4" : {
