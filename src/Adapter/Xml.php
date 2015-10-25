@@ -13,7 +13,7 @@ use IsoCodes\Country\Country;
 
 use XMLReader;
 
-class Xml
+class Xml implements AdapterInterface
 {
     /**
      * @var XMLReader
