@@ -5,9 +5,17 @@
         "php": ">=5.3.23",
         "zendframework/zend-i18n": "2.4.8"
     },
+    "require-dev": {
+        "phpunit/PHPUnit": "~4.0"
+    },
     "autoload" : {
         "psr-4" : {
             "IsoCodes\\Country\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IsoCodesTest\\Country\\": "test/"
         }
     }
 }
