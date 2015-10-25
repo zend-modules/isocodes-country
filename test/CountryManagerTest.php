@@ -23,7 +23,7 @@ class CountryManagerTest extends TestCase
     public function testConstructorAdapter()
     {
         $adapter = new Xml(dirname(__DIR__) . '/data/iso_3166.xml');
-        $this->assertInstanceOf('IsoCodes\Country\Adapter\AdapterInterface', $adapter);
+        $this->assertInstanceOf('IsoCodes\Country\Adapter\Xml', $adapter);
         
         $countryManager = new CountryManager($adapter);
         $this->assertInstanceOf('IsoCodes\Country\CountryManager', $countryManager);
