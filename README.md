@@ -1,4 +1,5 @@
 # isocodes-country #
+[![Build Status](https://secure.travis-ci.org/zend-modules/isocodes-country.svg?branch=master)](https://secure.travis-ci.org/zend-modules/isocodes-country)
 
 ## Installation ##
 
