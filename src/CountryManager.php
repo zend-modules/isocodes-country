@@ -9,8 +9,8 @@
 
 namespace IsoCodes\Country;
 
-use IsoCodes\Country\Adapter\Xml as XmlAdapter;
 use IsoCodes\Country\Adapter\AdapterInterface;
+use IsoCodes\Country\Adapter\StaticAdapter;
 use Zend\I18n\Translator\Translator;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\I18n\Translator\TranslatorInterface;
@@ -46,7 +46,7 @@ class CountryManager implements TranslatorAwareInterface
     public function __construct(AdapterInterface $adapter = null)
     {
         if (null === $adapter) {
-            $adapter = new XmlAdapter(dirname(__DIR__) . '/data/iso_3166.xml');
+            $adapter = new StaticAdapter();
         }
 
         $this->adapter = $adapter;
@@ -89,18 +89,42 @@ class CountryManager implements TranslatorAwareInterface
     {
         $countries = $this->adapter->getAll();
 
-        if ($this->isTranslatorEnabled()) {
-            $result = array();
-            
-            foreach ($countries as $country) {
-                $country = clone($country);
-                $result[] = $this->translateCountry($country);
+        $results = array();
+        
+        foreach ($countries as $country) {
+            $country = new Country($country);
+            if ($this->isTranslatorEnabled()) {
+                $results[] = $this->translateCountry($country);
+            } else {
+                $results[] = $country;
             }
-
-            $countries = $result;
         }
 
-        return $countries;
+        return $results;
+    }
+
+    /**
+     * Get all country names.
+     * 
+     * @return array Retuns an array of aplha2 to name array.
+     */
+    public function getNames()
+    {
+        $countries = $this->adapter->getAll();
+
+        $results = array();
+        
+        foreach ($countries as $country) {
+            if ($this->isTranslatorEnabled()) {
+                if (!empty($country['name'])) {
+                    $country['name'] = $this->translator->translate($country['name'], $this->translatorTextDomain);
+                }
+            }
+
+            $results[$country['alpha_2']] = $country['name'];
+        }
+
+        return $results;
     }
 
     /**
@@ -111,9 +135,11 @@ class CountryManager implements TranslatorAwareInterface
      */
     public function findByAlpha2($code)
     {
-        $country = clone($this->adapter->findByAlpha2($code));
-
-        $country = $this->translateCountry($country);
+        $country = $this->adapter->findByAlpha2($code);
+        $country = new Country($country);
+        if ($this->isTranslatorEnabled()) {
+            $country = $this->translateCountry($country);
+        }
 
         return $country;
     }
@@ -126,9 +152,11 @@ class CountryManager implements TranslatorAwareInterface
      */
     public function findByAlpha3($code)
     {
-        $country = clone($this->adapter->findByAlpha3($code));
-
-        $country = $this->translateCountry($country);
+        $country = $this->adapter->findByAlpha3($code);
+        $country = new Country($country);
+        if ($this->isTranslatorEnabled()) {
+            $country = $this->translateCountry($country);
+        }
 
         return $country;
     }
@@ -141,9 +169,11 @@ class CountryManager implements TranslatorAwareInterface
      */
     public function findByNumeric($code)
     {
-        $country = clone($this->adapter->findByNumeric($code));
-
-        $country = $this->translateCountry($country);
+        $country = $this->adapter->findByNumeric($code);
+        $country = new Country($country);
+        if ($this->isTranslatorEnabled()) {
+            $country = $this->translateCountry($country);
+        }
 
         return $country;
     }

@@ -17,6 +17,25 @@ class Country implements CountryInterface
     protected $name;
     protected $officialName;
 
+    public function __construct($data = array())
+    {
+        if (is_array($data)) {
+            // TODO: Sanity checks
+
+            $this->alpha2       = isset($data['alpha_2']) ? $data['alpha_2'] : null;
+            $this->alpha3       = isset($data['alpha_3']) ? $data['alpha_3'] : null;
+            $this->numeric      = isset($data['numeric']) ? $data['numeric'] : null;
+            $this->name         = isset($data['name']) ? $data['name'] : null;
+            $this->officialName = isset($data['official_name']) ? $data['official_name'] : null;
+        } elseif ($data instanceof Country) {
+            $this->alpha2       = $data->getAlpha2();
+            $this->alpha3       = $data->getAlpha3();
+            $this->numeric      = $data->getNumeric();
+            $this->name         = $data->getName();
+            $this->officialName = $data->getOfficialName();
+        }
+    }
+
     /**
      * Get alpha-2 code.
      * 

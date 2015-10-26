@@ -19,10 +19,17 @@ interface AdapterInterface
     public function getAll();
 
     /**
+     * Get all country names.
+     * 
+     * @return array Retuns an array of aplha2 to name array.
+     */
+    public function getNames();
+
+    /**
      * Find a country by alpha-2 code.
      * 
      * @param string $code Alpha-2 code
-     * @return \IsoCodes\Country\CountryInterface
+     * @return \IsoCodes\Country\CountryInterface|null
      */
     public function findByAlpha2($code);
 
@@ -30,7 +37,7 @@ interface AdapterInterface
      * Find a country by alpha-3 code.
      * 
      * @param string $code Alpha-3 code
-     * @return \IsoCodes\Country\CountryInterface
+     * @return \IsoCodes\Country\CountryInterface|null
      */
     public function findByAlpha3($code);
 
@@ -38,7 +45,7 @@ interface AdapterInterface
      * Find a country by numeric code.
      * 
      * @param string $code Numeric code
-     * @return \IsoCodes\Country\CountryInterface
+     * @return \IsoCodes\Country\CountryInterface|null
      */
     public function findByNumeric($code);
 }
