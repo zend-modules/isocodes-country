@@ -3,7 +3,7 @@ namespace IsoCodesTest\Country;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use IsoCodes\Country\CountryManager;
-use IsoCodes\Country\Adapter\Xml;
+use IsoCodes\Country\Adapter\StaticAdapter;
 
 class CountryManagerTest extends TestCase
 {
@@ -22,7 +22,7 @@ class CountryManagerTest extends TestCase
      */
     public function testConstructorAdapter()
     {
-        $adapter = new Xml(dirname(__DIR__) . '/data/iso_3166.xml');
+        $adapter = new StaticAdapter();
         $this->assertInstanceOf('IsoCodes\Country\Adapter\AdapterInterface', $adapter);
         
         $countryManager = new CountryManager($adapter);
