@@ -39,6 +39,15 @@ You may also pass the `PDO::__construct` parameters.
     ));
     $countryManager = new \IsoCodes\Country\Country($adapter);
 
+### ZendDB ###
+This adapter uses a `Zend\Db\Adapter\Adapterinterface` object to retrieve country information from a database.
+
+As an example:
+
+    $dbAdapter      = $serviceManager->get('Zend\Db\Adapter\Adapter');
+    $adapter        = new \IsoCodes\Country\Adapter\ZendDB($dbAdapter);
+    $countryManager = new \IsoCodes\Country\Country($adapter);
+
 ## Translating ##
 The default output is english.
 
