@@ -39,6 +39,13 @@ You may also pass the `PDO::__construct` parameters.
     ));
     $countryManager = new \IsoCodes\Country\Country($adapter);
 
+## Translating ##
+The default output is english.
+
+To change the output locale set the translator's locale to the one that fits your needs. For example, if you wish to output the country names in spanish:
+
+    $countryManager->getTranslator()->setLocale('es');
+
 ## Data Source ##
 The data provided by this module comes from iso-codes package from Debian.
 
