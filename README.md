@@ -16,6 +16,7 @@
     ```bash
     $ php composer.phar update
     ```
+
 ## Adapters ##
 ### StaticAdapter ###
 The static adapter uses an internal array of country names. This is the default adapter as no extra configuration in needed.
