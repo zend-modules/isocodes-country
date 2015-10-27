@@ -41,7 +41,7 @@ class CountryManager implements TranslatorAwareInterface
      *
      * @var string
      */
-    protected $translatorTextDomain = 'default';
+    protected $translatorTextDomain = 'country';
 
     public function __construct(AdapterInterface $adapter = null)
     {
@@ -55,7 +55,7 @@ class CountryManager implements TranslatorAwareInterface
         $this->translator = new Translator();
         $this->translator->setLocale('en_US');
         $this->translator->setFallbackLocale('en_US');
-        $this->translator->addTranslationFilePattern('gettext', dirname(__DIR__) . '/language', '%s.mo');
+        $this->translator->addTranslationFilePattern('gettext', dirname(__DIR__) . '/language/country/', '%s.mo', $this->translatorTextDomain);
     }
 
     /**
