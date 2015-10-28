@@ -116,6 +116,24 @@ class ContinentManager implements TranslatorAwareInterface
     }
 
     /**
+     * Get all continents names.
+     * 
+     * @return array Retuns an array of aplha2 to name array.
+     */
+    public function getNames()
+    {
+        if (array_key_exists($code, $this->continents)) {
+            if ($this->isTranslatorEnabled()) {
+                return $this->translator->translate($this->continents['code'], $this->translatorTextDomain);
+            } else {
+                return $this->continents[$code];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Sets translator to use in helper
      *
      * @param  TranslatorInterface $translator  [optional] translator.
