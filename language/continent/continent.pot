@@ -1,0 +1,45 @@
+# Translation of ISO 3166 (continent names) to LANGUAGE
+#
+# This file is distributed under the same license as the isocodes package.
+#
+# Copyright ©
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: iso_3166 3.58\n"
+"POT-Creation-Date: 2015-06-10 16:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. name for AF
+msgid "Africa"
+msgstr ""
+
+#. name for AN
+msgid "Antarctica"
+msgstr ""
+
+#. name for AS
+msgid "Asia"
+msgstr ""
+
+#. name for EU
+msgid "Europe"
+msgstr ""
+
+#. name for NA
+msgid "North america"
+msgstr ""
+
+#. name for OC
+msgid "Oceania"
+msgstr ""
+
+#. name for SA
+msgid "South america"
+msgstr ""

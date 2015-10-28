@@ -274,7 +274,7 @@ class CountryManager implements TranslatorAwareInterface
      * @param  string $textDomain
      * @return CountryManager
      */
-    public function setTranslatorTextDomain($textDomain = 'default')
+    public function setTranslatorTextDomain($textDomain = 'country')
     {
         $this->translatorTextDomain = $textDomain;
         return $this;
