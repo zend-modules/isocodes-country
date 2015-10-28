@@ -1,6 +1,8 @@
 # isocodes-country #
 [![Build Status](https://secure.travis-ci.org/zend-modules/isocodes-country.svg?branch=master)](https://secure.travis-ci.org/zend-modules/isocodes-country)
 
+Help us translate at [https://www.transifex.com/jpg-consulting/isocodes-country/](https://www.transifex.com/jpg-consulting/isocodes-country/)
+
 ## Installation ##
 
 1. Add this project in your composer.json:
