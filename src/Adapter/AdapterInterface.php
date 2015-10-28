@@ -14,16 +14,18 @@ interface AdapterInterface
     /**
      * Get all countries.
      * 
+     * @param string|null $continentCode The continent code
      * @return array
      */
-    public function getAll();
+    public function getAll($continentCode = null);
 
     /**
      * Get all country names.
      * 
+     * @param string|null $continentCode The continent code
      * @return array Retuns an array of aplha2 to name array.
      */
-    public function getNames();
+    public function getNames($continentCode = null);
 
     /**
      * Find a country by alpha-2 code.

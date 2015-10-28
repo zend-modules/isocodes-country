@@ -14,6 +14,7 @@ class Country implements CountryInterface
     protected $alpha2;
     protected $alpha3;
     protected $numeric;
+    protected $continent;
     protected $name;
     protected $officialName;
 
@@ -27,12 +28,18 @@ class Country implements CountryInterface
             $this->numeric      = isset($data['numeric']) ? $data['numeric'] : null;
             $this->name         = isset($data['name']) ? $data['name'] : null;
             $this->officialName = isset($data['official_name']) ? $data['official_name'] : null;
+
+            if (isset($data['continent_alpha_2'])) {
+                $continentManager = new ContinentManager();
+                $this->continent  = $continentManager->get($data['continent_alpha_2']);
+            }
         } elseif ($data instanceof Country) {
             $this->alpha2       = $data->getAlpha2();
             $this->alpha3       = $data->getAlpha3();
             $this->numeric      = $data->getNumeric();
             $this->name         = $data->getName();
             $this->officialName = $data->getOfficialName();
+            $this->continent    = $data->getContinent();
         }
     }
 
@@ -54,6 +61,16 @@ class Country implements CountryInterface
     public function getAlpha3()
     {
         return $this->alpha3;
+    }
+
+    /**
+     * Get the continent.
+     * 
+     * Enter description here ...
+     */
+    public function getContinent()
+    {
+        return $this->continent;
     }
 
     /**

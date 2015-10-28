@@ -60,12 +60,19 @@ class Pdo implements AdapterInterface
     /**
      * Get all countries.
      * 
+     * @param string|null $continentCode The continent code
      * @return array
      */
-    public function getAll()
+    public function getAll($continentCode = null)
     {
-        $statement = $this->connection->prepare("SELECT * FROM iso_3166_1");
-        $result    = $statement->execute();
+        if (null !== $continentCode) {
+            $statement = $this->connection->prepare("SELECT * FROM iso_3166_1 WHERE continent_alpha_2 = ?");
+            $result    = $statement->execute(array($continentCode));
+        } else {
+            $statement = $this->connection->prepare("SELECT * FROM iso_3166_1");
+            $result    = $statement->execute();
+        }
+
         if (!$result) {
             return array();
         }
@@ -78,14 +85,21 @@ class Pdo implements AdapterInterface
     /**
      * Get all country names.
      * 
+     * @param string|null $continentCode The continent code
      * @return array Retuns an array of aplha2 to name array.
      */
-    public function getNames()
+    public function getNames($continentCode = null)
     {
         $retValues = array();
-        
-        $statement = $this->connection->prepare("SELECT alpha_2, name FROM iso_3166_1");
-        $result    = $statement->execute();
+
+        if (null !== $continentCode) {
+            $statement = $this->connection->prepare("SELECT alpha_2, name FROM iso_3166_1 WHERE continent_alpha_2 = ?");
+            $result    = $statement->execute(array($continentCode));
+        } else {
+            $statement = $this->connection->prepare("SELECT alpha_2, name FROM iso_3166_1");
+            $result    = $statement->execute();
+        }
+
         if (!$result) {
             return array();
         }

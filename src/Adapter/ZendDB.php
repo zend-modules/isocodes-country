@@ -33,12 +33,16 @@ class ZendDB implements AdapterInterface
     /**
      * Get all countries.
      * 
+     * @param string|null $continentCode The continent code
      * @return array
      */
-    public function getAll()
+    public function getAll($continentCode = null)
     {
         $sql       = new Sql($this->adapter);
         $select    = $sql->select('iso_3166_1');
+        if (null !== $continentCode) {
+            $select->where(array('continent_alpha_2' => $continentCode));
+        }
         $statement = $sql->prepareStatementForSqlObject($select);
         $result    = $statement->execute();
 
@@ -55,14 +59,19 @@ class ZendDB implements AdapterInterface
     /**
      * Get all country names.
      * 
+     * @param string|null $continentCode The continent code
      * @return array Retuns an array of aplha2 to name array.
      */
-    public function getNames()
+    public function getNames($continentCode = null)
     {
         $sql       = new Sql($this->adapter);
         $select    = $sql->select('iso_3166_1');
 
         $select->columns('alpha_2', 'name');
+
+        if (null !== $continentCode) {
+            $select->where(array('continent_alpha_2' => $continentCode));
+        }
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result    = $statement->execute();

@@ -1,8 +1,6 @@
 # isocodes-country #
 [![Build Status](https://secure.travis-ci.org/zend-modules/isocodes-country.svg?branch=master)](https://secure.travis-ci.org/zend-modules/isocodes-country)
 
-Help us translate at [https://www.transifex.com/jpg-consulting/isocodes-country/](https://www.transifex.com/jpg-consulting/isocodes-country/)
-
 ## Installation ##
 
 1. Add this project in your composer.json:
@@ -26,7 +24,7 @@ The static adapter uses an internal array of country names. This is the default 
     $countryManager = new \IsoCodes\Country\Country();
 
 ### Pdo ###
-This adapter uses a PDO connection to fetch the data from a database. You have a MySQL dump of the database table in `data\iso_3166_1.sql`
+This adapter uses a PDO connection to fetch the data from a database. You have a MySQL dump of the database table in `data\iso_3166.sql`
 
     $dbh = new \Pdo('mysql:host:localhost;dbname=isodata;', 'root', '');
     $adapter = new \IsoCodes\Country\Adapter\Pdo($dbh);

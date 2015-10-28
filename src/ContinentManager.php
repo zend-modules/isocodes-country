@@ -10,18 +10,26 @@
 namespace IsoCodes\Country;
 
 use Zend\I18n\Translator\Translator;
-
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\I18n\Translator\TranslatorInterface;
 
-class ContinentManager implements TranslatorAwareInterface
-{
+class ContinentManager implements
+    CountryManagerAwareInterface, 
+    TranslatorAwareInterface
+{        
     /**
      * Continent list.
      * 
      * @var array
      */
     protected $continents = array();
+
+    /**
+     * Country manager.
+     * 
+     * @var CountryManager
+     */
+    protected $countryManager = null;
 
     /**
      * @var TranslatorInterface
@@ -48,14 +56,22 @@ class ContinentManager implements TranslatorAwareInterface
     public function __construct()
     {
         $this->continents = array(
-            'AF' => 'Africa',
-            'AN' => 'Antarctica',
-            'AS' => 'Asia',
-            'EU' => 'Europe',
-            'NA' => 'North america',
-            'OC' => 'Oceania', 
-            'SA' => 'South america'
+            'AF' => new Continent('AF', 'Africa'),
+            'AN' => new Continent('AN', 'Antarctica'),
+            'AS' => new Continent('AS', 'Asia'),
+            'EU' => new Continent('EU', 'Europe'),
+            'NA' => new Continent('NA', 'North america'),
+            'OC' => new Continent('OC', 'Oceania'), 
+            'SA' => new Continent('SA', 'South america')
         );
+
+        if (null !== $this->countryManager) {
+            foreach ($this->continents as $continent) {
+                if ($continent instanceof CountryManagerAwareInterface) {
+                    $country->setCountryManager($countryManager);
+                }
+            }
+        }
 
         // Translator
         $this->translator = new Translator();
@@ -74,7 +90,10 @@ class ContinentManager implements TranslatorAwareInterface
         if ($this->isTranslatorEnabled()) {
             $retItems = array();
             foreach ($this->continents as $key => $value) {
-                $retItems[$key] = $this->translator->translate($value, $this->translatorTextDomain);
+                $name = $this->translator->translate($value->getName(), $this->translatorTextDomain);
+                $continent = clone $value;
+                $continent->setName($name);
+                $retItems[$key] = $continent;
             }
             return $retItems;
         }
@@ -90,25 +109,12 @@ class ContinentManager implements TranslatorAwareInterface
     {
         if (array_key_exists($code, $this->continents)) {
             if ($this->isTranslatorEnabled()) {
-                return $this->translator->translate($this->continents['code'], $this->translatorTextDomain);
+                $continent = clone $this->continents[$code];
+                $name      = $this->translator->translate($continent->getName(), $this->translatorTextDomain);
+                $continent->setName($name);
+                return $continent;
             } else {
                 return $this->continents[$code];
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Get the continent code.
-     * 
-     * @param string $name Continent name.
-     */
-    public function getCode($name)
-    {
-        foreach ($this->continents as $key => $value) {
-            if (strcasecmp($name, $value) === 0) {
-                return $key;
             }
         }
 
@@ -122,15 +128,18 @@ class ContinentManager implements TranslatorAwareInterface
      */
     public function getNames()
     {
-        if (array_key_exists($code, $this->continents)) {
+        $retItems = array();
+
+        foreach ($this->continents as $key => $value) {
             if ($this->isTranslatorEnabled()) {
-                return $this->translator->translate($this->continents['code'], $this->translatorTextDomain);
+                $name = $this->translator->translate($value->getName(), $this->translatorTextDomain);
+                $retItems[$key] = $name;
             } else {
-                return $this->continents[$code];
+                $retItems[$key] = $value->getName();
             }
         }
 
-        return null;
+        return $retItems;
     }
 
     /**
@@ -220,5 +229,24 @@ class ContinentManager implements TranslatorAwareInterface
     public function getTranslatorTextDomain()
     {
         return $this->translatorTextDomain;
+    }
+
+    /**
+     * Set country manager
+     *
+     * @param CountryManager $countryManager
+     * @return ContinentManager
+     */
+    public function setCountryManager(CountryManager $countryManager)
+    {
+        $this->countryManager = $countryManager;
+
+        foreach ($this->continents as $continent) {
+            if ($continent instanceof CountryManagerAwareInterface) {
+                $continent->setCountryManager($countryManager);
+            }
+        }
+
+        return $this;
     }
 }

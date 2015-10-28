@@ -85,9 +85,9 @@ class CountryManager implements TranslatorAwareInterface
      * 
      * @return array
      */
-    public function getAll()
+    public function getAll($continentCode = null)
     {
-        $countries = $this->adapter->getAll();
+        $countries = $this->adapter->getAll($continentCode);
 
         $results = array();
         
@@ -108,9 +108,9 @@ class CountryManager implements TranslatorAwareInterface
      * 
      * @return array Retuns an array of aplha2 to name array.
      */
-    public function getNames()
+    public function getNames($continentCode = null)
     {
-        $countries = $this->adapter->getAll();
+        $countries = $this->adapter->getAll($continentCode);
 
         $results = array();
         
